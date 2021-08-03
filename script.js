@@ -1,3 +1,6 @@
+// this array is for keeping user data.
+// if new user arrive use push method
+
 var loginVar = [{
         fullName: "Jawad Bin Mobin Akib",
         userName: "jbmakib",
@@ -11,12 +14,12 @@ var loginVar = [{
 ]
 
 
-//login field
+// get those id(s) in a variable to use it later (login part)
 var loginFormField = document.getElementById("loginForm");
 var newLogBtn = document.getElementById("newLogbtn");
 
 
-// sign in field
+// get those id(s) in a variable to use it later (sign in part)
 var newSigninBtn = document.getElementById("newSignbtn");
 var signInFormField = document.getElementById("signInForm");
 
@@ -24,31 +27,52 @@ var signInFormField = document.getElementById("signInForm");
 // box field for output
 var boxField = document.getElementById("box");
 
+
+// if login button is clicked this function will run.
 function login() {
+
+    // take the input field's value in variable to validate
     var usernameField = document.querySelector("#user").value;
     var pwdField = document.querySelector("#pwd").value;
+
+    // remove class from box-field to show the output && add class to new login button to hide it.
     boxField.classList.remove("d-none");
     newLogBtn.classList.add("d-none");
 
+    // run a for loop to validate data from array.
     for (let i = 0; i < loginVar.length; i++) {
         if (usernameField == loginVar[i].userName && pwdField == loginVar[i].passWord) {
+
+            // add class to login form and sign in button to hide it
             loginFormField.classList.add("d-none");
+            newSigninBtn.classList.add("d-none");
+
+            // store the full name in a variable
             var fullName = loginVar[i].fullName;
             boxField.innerHTML = `Welcome: ${fullName}<br><button onclick="logout()">Logout</button>`;
-            newSigninBtn.classList.add("d-none");
             return;
         }
+
+        // this code will show if the user inputs wrong data.
         boxField.innerHTML = `Login Failed`;
-    }
+    };
+
+    // if user inputs no data give them an alert
     if (usernameField = "" || pwdField == "") {
-        window.alert("Username and password can't be blank\nPlease enter valid information")
-    }
+        window.alert("Username and password can't be blank\nPlease enter valid information");
+    };
 }
 
+
+// if "have an account" button is clicked this function will run.
 function newLogIn() {
+
+    // make the input field blank
     document.querySelector("#fullN").value = "";
     document.querySelector("#userSign").value = "";
     document.querySelector("#pwdSign").value = "";
+
+    // class added to hide and removed to show.
     loginFormField.classList.remove("d-none");
     newSigninBtn.classList.remove("d-none");
     newLogBtn.classList.add("d-none");
@@ -56,10 +80,16 @@ function newLogIn() {
     boxField.classList.add("d-none");
 }
 
+
+// if "new user? sign in now" button is clicked this function will run.
 function newSignIn() {
+
+    // make the sign in form's input field blank
     document.querySelector("#fullN").value = "";
     document.querySelector("#userSign").value = "";
     document.querySelector("#pwdSign").value = "";
+
+    // added and removed class to hide and show element
     loginFormField.classList.add("d-none");
     newSigninBtn.classList.add("d-none");
     newLogBtn.classList.remove("d-none");
@@ -67,36 +97,57 @@ function newSignIn() {
     boxField.classList.add("d-none");
 }
 
+
+// if sign-in button is clicked this function will run.
 function signIn() {
+
+    // take the field values in variables
     var fullNameSign = document.querySelector("#fullN").value;
     var userName = document.querySelector("#userSign").value;
     var signpwd = document.querySelector("#pwdSign").value;
 
+    // show alert if the input fields are blank
     if (fullNameSign == "" || userName == "" || signpwd == "") {
         window.alert("Fullname, username and password can't be blank\nPlease enter valid informations");
         return;
     }
+
+    // run a for loop to validate data
     for (i = 0; i < (loginVar.length); i++) {
         if (userName == loginVar[i].userName) {
             window.alert("this username is already taken");
             return;
         }
     }
+
+    // push new user data to array.
     loginVar.push({
         fullName: fullNameSign,
         userName: userName,
         passWord: signpwd
     });
+
+    // add or remove class to hide or show element
     newLogBtn.classList.add("d-none");
     signInFormField.classList.add("d-none");
-    var fullName = loginVar[loginVar.length - 1].fullName;
     boxField.classList.remove("d-none");
+
+    // add this into a variable.
+    var fullName = loginVar[loginVar.length - 1].fullName;
+
+    // show the output
     boxField.innerHTML = `Welcome: ${fullName}<br><button onclick="logout()">Logout</button>`;
 }
 
+
+// if logout button is clicked this function will run.
 function logout() {
+
+    // make the input field blank
     document.querySelector("#user").value = "";
     document.querySelector("#pwd").value = "";
+
+    // add or remove class to hide or show the element.
     boxField.classList.add("d-none");
     loginFormField.classList.remove("d-none");
     newSigninBtn.classList.remove("d-none")
