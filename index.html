@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Project</title>
+    <style>
+        .d-none {
+            display: none;
+        }
+        
+        .iframe {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="#" id="loginForm">
+        <input type="text" name="username" placeholder="username" id="user">
+        <input type="password" name="password" placeholder="password" id="pwd">
+
+        <input type="button" value="Login" onclick="login()">
+    </form>
+    <form action="#" id="signInForm" class="d-none">
+        <input type="text" name="signfullName" placeholder="Full Name" id="fullN">
+        <input type="text" name="signusername" placeholder="username" id="userSign">
+        <input type="password" name="password" placeholder="password" id="pwdSign">
+        <input type="button" value="Sign In" onclick="signIn()">
+    </form>
+    <br>
+    <input type="button" value="New User? Sign In Now" onclick="newSignIn()" id="newSignbtn">
+    <input type="button" value="Have an account? Log In now" onclick="newLogIn()" id="newLogbtn" class="d-none">
+    <div id="box"></div>
+    <br>
+    <iframe class="iframe" width="560" height="315" src="https://www.youtube.com/embed/uwIENwbH1Zw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <!-- script linking -->
+    <script src="script.js"></script>
+</body>
+
+</html>
