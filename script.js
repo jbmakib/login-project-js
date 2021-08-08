@@ -13,6 +13,8 @@ var loginVar = [{
     }
 ]
 
+// get data from local storage
+let loginVarObj = JSON.parse(localStorage.getItem("logged-in-users"));
 
 // get those id(s) in a variable to use it later (login part)
 var loginFormField = document.getElementById("loginForm");
@@ -38,6 +40,11 @@ function login() {
     // remove class from box-field to show the output && add class to new login button to hide it.
     boxField.classList.remove("d-none");
     newLogBtn.classList.add("d-none");
+
+    // update loginVar array.
+    if (loginVarObj != null) {
+        loginVar = loginVarObj;
+    }
 
     // run a for loop to validate data from array.
     for (let i = 0; i < loginVar.length; i++) {
@@ -112,6 +119,11 @@ function signIn() {
         return;
     }
 
+    // update loginVar array.
+    if (loginVarObj != null) {
+        loginVar = loginVarObj;
+    }
+
     // run a for loop to validate data
     for (i = 0; i < (loginVar.length); i++) {
         if (userName == loginVar[i].userName) {
@@ -126,6 +138,10 @@ function signIn() {
         userName: userName,
         passWord: signpwd
     });
+
+    // add to localstorage
+    let loginVarStr = JSON.stringify(loginVar);
+    localStorage.setItem("logged-in-users", loginVarStr);
 
     // add or remove class to hide or show element
     newLogBtn.classList.add("d-none");
