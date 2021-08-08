@@ -89,9 +89,8 @@ function login() {
 function newLogIn() {
 
     // make the input field blank
-    document.querySelector("#fullN").value = "";
-    document.querySelector("#userSign").value = "";
-    document.querySelector("#pwdSign").value = "";
+    document.querySelector("#user").value = "";
+    document.querySelector("#pwd").value = "";
 
     // class added to hide and removed to show.
     show(loginFormField);
