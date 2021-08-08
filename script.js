@@ -11,8 +11,11 @@ var loginVar = [{
         userName: "nusuananya",
         passWord: "1234"
     }
-]
+];
 
+
+
+/* get variables, localstorage, everything to make this code easier */
 
 // get data from local storage
 let loginVarObj = JSON.parse(localStorage.getItem("logged-in-users"));
@@ -31,6 +34,9 @@ var signInFormField = document.getElementById("signInForm");
 // box field for output
 var boxField = document.getElementById("box");
 
+/* ready for work */
+
+
 
 // show element
 function show(element) {
@@ -43,6 +49,28 @@ function hide(element) {
     element.classList.add("d-none");
 };
 
+
+// last login status and name
+let loggedInStatus = false;
+let lastLoginName;
+let loggedInStatusObj = JSON.parse(localStorage.getItem("last-logged-in"));
+let loggedInNameObj = localStorage.getItem("last-logged-in-user");
+
+function welcome(fullName) {
+    show(boxField);
+    boxField.innerHTML = `Welcome: ${fullName}<br><button onclick="logout()">Logout</button>`;
+};
+
+function lastLoggedInStatus() {
+    if (loggedInStatusObj == true) {
+        welcome(loggedInNameObj);
+        hide(loginFormField);
+        hide(newSigninBtn);
+        hide(newLogBtn);
+        hide(signInFormField);
+    }
+}
+lastLoggedInStatus();
 
 // if login button is clicked this function will run.
 function login() {
@@ -70,8 +98,16 @@ function login() {
 
             // store the full name in a variable
             var fullName = loginVar[i].fullName;
-            boxField.innerHTML = `Welcome: ${fullName}<br><button onclick="logout()">Logout</button>`;
+            welcome(fullName);
+
+            // login true
+            loggedInStatus = true;
+            loggedInStatusStr = JSON.stringify(loggedInStatusObj);
+            localStorage.setItem("last-logged-in", loggedInStatus);
+            localStorage.setItem("last-logged-in-user", fullName);
             return;
+        } else if (usernameField == loginVar[i].userName && pwdField != loginVar[i].passWord) {
+            window.alert("Password not matched");
         }
 
         // this code will show if the user inputs wrong data.
@@ -80,7 +116,7 @@ function login() {
 
     // if user inputs no data give them an alert
     if (usernameField = "" || pwdField == "") {
-        window.alert("Username and password can't be blank\nPlease enter valid information");
+        window.alert("Username or password can't be blank\nPlease enter valid information");
     };
 }
 
@@ -165,7 +201,13 @@ function signIn() {
     var fullName = loginVar[loginVar.length - 1].fullName;
 
     // show the output
-    boxField.innerHTML = `Welcome: ${fullName}<br><button onclick="logout()">Logout</button>`;
+    welcome(fullName);
+
+    // login true
+    loggedInStatus = true;
+    loggedInStatusStr = JSON.stringify(loggedInStatusObj);
+    localStorage.setItem("last-logged-in", loggedInStatus);
+    localStorage.setItem("last-logged-in-user", fullName);
 }
 
 
@@ -181,4 +223,9 @@ function logout() {
     show(loginFormField);
     show(newSigninBtn);
     hide(newLogBtn);
+
+    // login true
+    loggedInStatus = false;
+    loggedInStatusStr = JSON.stringify(loggedInStatusObj);
+    localStorage.setItem("last-logged-in", loggedInStatus);
 }
