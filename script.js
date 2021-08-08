@@ -13,8 +13,10 @@ var loginVar = [{
     }
 ]
 
+
 // get data from local storage
 let loginVarObj = JSON.parse(localStorage.getItem("logged-in-users"));
+
 
 // get those id(s) in a variable to use it later (login part)
 var loginFormField = document.getElementById("loginForm");
@@ -30,6 +32,18 @@ var signInFormField = document.getElementById("signInForm");
 var boxField = document.getElementById("box");
 
 
+// show element
+function show(element) {
+    element.classList.remove("d-none");
+}
+
+
+// hide element
+function hide(element) {
+    element.classList.add("d-none");
+};
+
+
 // if login button is clicked this function will run.
 function login() {
 
@@ -38,8 +52,8 @@ function login() {
     var pwdField = document.querySelector("#pwd").value;
 
     // remove class from box-field to show the output && add class to new login button to hide it.
-    boxField.classList.remove("d-none");
-    newLogBtn.classList.add("d-none");
+    show(boxField);
+    hide(newLogBtn);
 
     // update loginVar array.
     if (loginVarObj != null) {
@@ -51,8 +65,8 @@ function login() {
         if (usernameField == loginVar[i].userName && pwdField == loginVar[i].passWord) {
 
             // add class to login form and sign in button to hide it
-            loginFormField.classList.add("d-none");
-            newSigninBtn.classList.add("d-none");
+            hide(loginFormField);
+            hide(newSigninBtn);
 
             // store the full name in a variable
             var fullName = loginVar[i].fullName;
@@ -80,11 +94,11 @@ function newLogIn() {
     document.querySelector("#pwdSign").value = "";
 
     // class added to hide and removed to show.
-    loginFormField.classList.remove("d-none");
-    newSigninBtn.classList.remove("d-none");
-    newLogBtn.classList.add("d-none");
-    signInFormField.classList.add("d-none");
-    boxField.classList.add("d-none");
+    show(loginFormField);
+    show(newSigninBtn);
+    hide(newLogBtn);
+    hide(signInFormField);
+    hide(boxField);
 }
 
 
@@ -97,11 +111,11 @@ function newSignIn() {
     document.querySelector("#pwdSign").value = "";
 
     // added and removed class to hide and show element
-    loginFormField.classList.add("d-none");
-    newSigninBtn.classList.add("d-none");
-    newLogBtn.classList.remove("d-none");
-    signInFormField.classList.remove("d-none");
-    boxField.classList.add("d-none");
+    hide(loginFormField);
+    hide(newSigninBtn);
+    show(newLogBtn);
+    show(signInFormField);
+    hide(boxField);
 }
 
 
@@ -144,9 +158,9 @@ function signIn() {
     localStorage.setItem("logged-in-users", loginVarStr);
 
     // add or remove class to hide or show element
-    newLogBtn.classList.add("d-none");
-    signInFormField.classList.add("d-none");
-    boxField.classList.remove("d-none");
+    hide(newLogBtn);
+    hide(signInFormField);
+    show(boxField);
 
     // add this into a variable.
     var fullName = loginVar[loginVar.length - 1].fullName;
@@ -164,8 +178,8 @@ function logout() {
     document.querySelector("#pwd").value = "";
 
     // add or remove class to hide or show the element.
-    boxField.classList.add("d-none");
-    loginFormField.classList.remove("d-none");
-    newSigninBtn.classList.remove("d-none")
-    newLogBtn.classList.add("d-none");
+    hide(boxField);
+    show(loginFormField);
+    show(newSigninBtn);
+    hide(newLogBtn);
 }
