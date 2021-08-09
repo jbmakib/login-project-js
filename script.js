@@ -23,12 +23,10 @@ let loginVarObj = JSON.parse(localStorage.getItem("logged-in-users"));
 
 // get those id(s) in a variable to use it later (login part)
 var loginFormField = document.getElementById("loginForm");
-var newLogBtn = document.getElementById("newLogbtn");
 
 
 // get those id(s) in a variable to use it later (sign in part)
-var newSigninBtn = document.getElementById("newSignbtn");
-var signInFormField = document.getElementById("signInForm");
+var signUpFormField = document.getElementById("signUpForm");
 
 
 // box field for output
@@ -58,30 +56,27 @@ let loggedInNameObj = localStorage.getItem("last-logged-in-user");
 
 function welcome(fullName) {
     show(boxField);
-    boxField.innerHTML = `Welcome: ${fullName}<br><button onclick="logout()">Logout</button>`;
+    boxField.innerHTML = `<div class="form"><h1>Welcome</h1><h2>${fullName}</h2><input type="button" value="Logout" onclick="logout()" class="logout-btn"></div>`;
 };
 
 function lastLoggedInStatus() {
     if (loggedInStatusObj == true) {
         welcome(loggedInNameObj);
         hide(loginFormField);
-        hide(newSigninBtn);
-        hide(newLogBtn);
-        hide(signInFormField);
+        hide(signUpFormField);
     }
 }
 lastLoggedInStatus();
 
 // if login button is clicked this function will run.
-function login() {
+function login(e) {
+    e.preventDefault();
 
     // take the input field's value in variable to validate
     var usernameField = document.querySelector("#user").value;
     var pwdField = document.querySelector("#pwd").value;
 
     // remove class from box-field to show the output && add class to new login button to hide it.
-    show(boxField);
-    hide(newLogBtn);
 
     // update loginVar array.
     if (loginVarObj != null) {
@@ -94,7 +89,7 @@ function login() {
 
             // add class to login form and sign in button to hide it
             hide(loginFormField);
-            hide(newSigninBtn);
+            show(boxField);
 
             // store the full name in a variable
             var fullName = loginVar[i].fullName;
@@ -105,19 +100,31 @@ function login() {
             loggedInStatusStr = JSON.stringify(loggedInStatusObj);
             localStorage.setItem("last-logged-in", loggedInStatus);
             localStorage.setItem("last-logged-in-user", fullName);
-            return;
-        } else if (usernameField == loginVar[i].userName && pwdField != loginVar[i].passWord) {
+        } else if ((usernameField != "" && usernameField == loginVar[i].userName) && (pwdField != "" && pwdField != loginVar[i].passWord)) {
             window.alert("Password not matched");
-        }
+            return;
+        };
 
-        // this code will show if the user inputs wrong data.
-        boxField.innerHTML = `Login Failed`;
     };
 
-    // if user inputs no data give them an alert
-    if (usernameField = "" || pwdField == "") {
+
+    // check is the user exist
+    function userExists(username) {
+        return loginVar.some(function(el) {
+            return el.userName === username;
+        });
+    };
+
+    if (usernameField != "" && userExists(usernameField) == false) {
+        window.alert("Username doesn't exist\nTry to sign up");
+        return;
+    }
+
+    if (usernameField == "" || pwdField == "") {
         window.alert("Username or password can't be blank\nPlease enter valid information");
+        return;
     };
+
 }
 
 
@@ -130,15 +137,13 @@ function newLogIn() {
 
     // class added to hide and removed to show.
     show(loginFormField);
-    show(newSigninBtn);
-    hide(newLogBtn);
-    hide(signInFormField);
+    hide(signUpFormField);
     hide(boxField);
 }
 
 
 // if "new user? sign in now" button is clicked this function will run.
-function newSignIn() {
+function newSignUp() {
 
     // make the sign in form's input field blank
     document.querySelector("#fullN").value = "";
@@ -147,15 +152,14 @@ function newSignIn() {
 
     // added and removed class to hide and show element
     hide(loginFormField);
-    hide(newSigninBtn);
-    show(newLogBtn);
-    show(signInFormField);
+    show(signUpFormField);
     hide(boxField);
 }
 
 
 // if sign-in button is clicked this function will run.
-function signIn() {
+function signUp(e) {
+    e.preventDefault();
 
     // take the field values in variables
     var fullNameSign = document.querySelector("#fullN").value;
@@ -193,8 +197,7 @@ function signIn() {
     localStorage.setItem("logged-in-users", loginVarStr);
 
     // add or remove class to hide or show element
-    hide(newLogBtn);
-    hide(signInFormField);
+    hide(signUpFormField);
     show(boxField);
 
     // add this into a variable.
@@ -221,8 +224,6 @@ function logout() {
     // add or remove class to hide or show the element.
     hide(boxField);
     show(loginFormField);
-    show(newSigninBtn);
-    hide(newLogBtn);
 
     // login true
     loggedInStatus = false;

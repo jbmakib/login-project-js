@@ -6,38 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Project</title>
-    <style>
-        .d-none {
-            display: none;
-        }
-        
-        .iframe {
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <form action="#" id="loginForm">
-        <input type="text" name="username" placeholder="username" id="user">
-        <input type="password" name="password" placeholder="password" id="pwd">
+    <div class="center">
+        <form id="loginForm" class="form">
+            <h1>Login</h1>
+            <div class="txt_field">
+                <input type="text" id="user" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" id="pwd" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <input type="button" value="Login" onclick="login(event)">
+            <div class="signup_link" id="newSignbtn">
+                Not a member? <span onclick="newSignUp()">Signup</span>
+            </div>
+        </form>
+        <form id="signUpForm" class="d-none form">
+            <h1>Sign Up</h1>
+            <div class="txt_field">
+                <input type="text" id="fullN" required>
+                <span></span>
+                <label>FullName</label>
+            </div>
+            <div class="txt_field">
+                <input type="text" id="userSign" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" id="pwdSign" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <input type="button" value="Sign Up" onclick="signUp(event)">
+            <div class="signup_link" id="newLogbtn">
+                Already a member? <span onclick="newLogIn()">Login</span>
+            </div>
+        </form>
+        <div id="box"></div>
+    </div>
 
-        <input type="button" value="Login" onclick="login()">
-    </form>
-    <form action="#" id="signInForm" class="d-none">
-        <input type="text" name="signfullName" placeholder="Full Name" id="fullN">
-        <input type="text" name="signusername" placeholder="username" id="userSign">
-        <input type="password" name="password" placeholder="password" id="pwdSign">
-        <input type="button" value="Sign In" onclick="signIn()">
-    </form>
-    <br>
-    <input type="button" value="New User? Sign In Now" onclick="newSignIn()" id="newSignbtn">
-    <input type="button" value="Have an account? Log In now" onclick="newLogIn()" id="newLogbtn" class="d-none">
-    <div id="box"></div>
-    <br>
-    <!-- <iframe class="iframe" width="560" height="315" src="https://www.youtube.com/embed/uwIENwbH1Zw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-
-    <!-- script linking -->
     <script src="script.js"></script>
 </body>
 
