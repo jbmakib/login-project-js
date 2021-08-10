@@ -134,3 +134,9 @@ input[type="submit"]:hover {
 .logout-btn {
     margin-bottom: 20px;
 }
+
+@media only screen and (max-width: 668px) {
+    .center {
+        width: 90%;
+    }
+}
