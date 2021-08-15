@@ -2,15 +2,15 @@
 // if new user arrive use push method
 
 var loginVar = [{
-        fullName: "Jawad Bin Mobin Akib",
-        userName: "jbmakib",
-        passWord: "1234"
-    },
-    {
-        fullName: "Nusrat Jahan Ananya",
-        userName: "nusuananya",
-        passWord: "1234"
-    }
+    fullName: "Jawad Bin Mobin Akib",
+    userName: "jbmakib",
+    passWord: "1234"
+},
+{
+    fullName: "Nusrat Jahan Ananya",
+    userName: "nusuananya",
+    passWord: "1234"
+}
 ];
 
 
@@ -110,7 +110,7 @@ function login(e) {
 
     // check is the user exist
     function userExists(username) {
-        return loginVar.some(function(el) {
+        return loginVar.some(function (el) {
             return el.userName === username;
         });
     };
